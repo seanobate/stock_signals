@@ -18,14 +18,14 @@ def add_macd(df):
     return df
 
 def add_bollinger(df):
-    bb = ta.bbands(df["Close"], length=20, std=2)
-    df["BB_upper"] = bb["BBU_20_2.0_2.0"]
-    df["BB_mid"] = bb["BBM_20_2.0_2.0"]
-    df["BB_lower"] = bb["BBL_20_2.0_2.0"]
+    bb = ta.bbands(df["Close"], length=20, std=2) # 20 day period & 2 standard deviations & close price is used to do calculations
+    df["BB_upper"] = bb["BBU_20_2.0_2.0"] # saves upper band
+    df["BB_mid"] = bb["BBM_20_2.0_2.0"] # saves middle band
+    df["BB_lower"] = bb["BBL_20_2.0_2.0"] # saves lower band
     return df
 
 def add_all_indicators(df):
-    df = add_sma(df)
+    df = add_sma(df) 
     df = add_rsi(df)
     df = add_macd(df)
     df = add_bollinger(df)
@@ -33,12 +33,12 @@ def add_all_indicators(df):
     return df
 
 if __name__ == "__main__":
-    from data import get_data
-    df = get_data("AAPL")
-    df = add_all_indicators(df)
+    from data import get_data # imports the data function
+    df = get_data("AAPL") # gets data from apple
+    df = add_all_indicators(df) # imoorts all the indicators into data
     print(df[["Close",
               "SMA20",
               "SMA50", 
               "RSI", 
               "MACD"
-              ]].tail(10))
+              ]].tail(10)) # shows last 10 rows of all these columns

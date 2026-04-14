@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt #allows for charting and visuals
 
 def get_data(ticker="AAPL", start="2020-01-01", end="2024-01-01"):
     df = yf.download(ticker, start=start, end=end) # downloads data from single stock from a certain time range.
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = df.columns.get_level_values(0)
+    if isinstance(df.columns, pd.MultiIndex): # if there are multiple levels in a column it runs this (a tuple)
+        df.columns = df.columns.get_level_values(0) # if the are multiple levels then it returns only the first column
     df.dropna(inplace=True) #dropna drops missing vals & inplace saves these changes
     print(f"Downloaded {len(df)} rows for {ticker}")
     print(df.head()) # prints the top 5 rows
